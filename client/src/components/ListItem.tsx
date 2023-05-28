@@ -1,5 +1,3 @@
-// import React from "react";
-
 type ListItemProps = {
   locationCity: string;
   locationCountry: string;

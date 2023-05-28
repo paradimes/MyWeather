@@ -1,16 +1,26 @@
 import React from "react";
+import { WeatherResponse } from "./customTypes";
+import ListItem from "./ListItem";
 
 type WeatherCardProps = {
-  location: string;
+  data: WeatherResponse;
 };
 
-export default function WeatherCard({ location }: WeatherCardProps) {
+export default function WeatherCard({ data }: WeatherCardProps) {
+  if (!data) {
+    return null;
+  }
+
+  const { main, name, sys, weather } = data;
+  const icon = `https://openweathermap.org/img/wn/${weather[0]["icon"]}@2x.png`;
   return (
-    <div className="border-4 border-white px-4 py-4 w-96 h-52 flex flex-col items-center justify-center rounded-3xl bg-indigo-300 ">
-      {/* /border-4 border-emerald-400 */}
-      <h1 className=" bg-indigo-700 text-xl text-white font-medium rounded-xl px-3 py-0.5">
-        {location}
-      </h1>
-    </div>
+    <ListItem
+      locationCity={name}
+      locationCountry={sys.country}
+      temperature={Math.round(main.temp)}
+      iconSrc={icon}
+      iconAlt={weather[0]["description"]}
+      iconCaption={weather[0]["description"]}
+    />
   );
 }
