@@ -17,7 +17,7 @@ export default function ListItem({
 }: ListItemProps) {
   return (
     <li>
-      <div className="border-4 border-red-600 min-w-[200px] flex flex-col h-full py-5 px-[10%] rounded-3xl bg-white text-slate-600">
+      <div className="min-w-[200px] flex flex-col h-full py-5 px-[10%] rounded-3xl bg-white text-slate-600">
         <div id="city" className="pb-3 text-[20px]">
           {locationCity}
           <sup className="ml-1 text-xs px-[0.6em] py-[0.2em] rounded-[30px] bg-orange-500 text-white">

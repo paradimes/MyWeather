@@ -73,7 +73,7 @@ export default function App() {
   // console.log("-----------------------------------");
 
   return (
-    <main className="border-4 border-cyan-500 flex flex-col h-screen overflow-auto bg-[#222] text-white items-center pt-10">
+    <main className="flex flex-col h-screen overflow-auto bg-[#222] text-white items-center pt-10">
       <section
         id="top-banner"
         className="flex flex-col gap-10 items-center text-white bg-gradient-to-r from-red-600 to-purple-600 p-1  "
@@ -147,10 +147,7 @@ export default function App() {
       </section>
 
       {dataArray.length ? (
-        <section
-          id="api-section"
-          className="mt-16 mb-5 mx-0 max-[700px]:mt-5 border-4 border-green-600"
-        >
+        <section id="api-section" className="mt-16 mb-5 mx-0 max-[700px]:mt-5">
           <div id="container" className="">
             <ul
               id="cities"
