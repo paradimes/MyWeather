@@ -14,12 +14,27 @@ installation instructions:
 Note: Using Open Weather's Weather API for weather forecast and data (https://openweathermap.org/current). 
 Please follow the steps for the "Free" option at https://openweathermap.org/price#weather to get setup with an API key. Then, on App.tsx, update DEVELOPER_KEY to your key. 
 
-# Screenshots
+## Screenshots
+### Landing Page ###
 ![Landing Page](./images/1_LandingPage.png)
+
+### Autocomplete ###
 ![Autocomplete](./images/2_Autocomplete.png)
+
+### Weather ###
 ![Weather](./images/3_Search.png)
+
+### Repeat Error ###
 ![Repeat Error](./images/4_RepeatError.png)
+
+### City Not Found Error ###
 ![City Not Found Error](./images/5_CityNotFound.png)
+
+### Responsive: 3 Cards ###
 ![Responsive: 3 Cards](./images/6_Responsive1.png)
+
+### Responsive: 2 Cards ###
 ![Responsive: 2 Cards](./images/7_Responsive2.png)
+
+### Responsive: 1 Card ###
 ![Responsive: 1 Card](./images/8_Responsive3.png)
