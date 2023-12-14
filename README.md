@@ -12,7 +12,7 @@ installation instructions:
 
 
 Note: Using Open Weather's Weather API for weather forecast and data (https://openweathermap.org/current). 
-Please follow the steps for the "Free" option at https://openweathermap.org/price#weather to get setup with an API key. Then, on App.tsx, update DEVELOPER_KEY to your key. 
+Please follow the steps for the "Free" option at https://openweathermap.org/price#weather to get setup with an API key.
 
 ## Screenshots
 ### Landing Page ###

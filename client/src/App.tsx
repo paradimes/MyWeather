@@ -3,7 +3,7 @@ import { WeatherResponse } from "./components/customTypes";
 import WeatherCard from "./components/WeatherCard";
 import Axios from "axios";
 
-const DEVELOPER_KEY = "DEVELOPER_KEY";
+const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 export default function App() {
   const [location, setLocation] = useState<string>("");
@@ -22,16 +22,18 @@ export default function App() {
   }
 
   useEffect(() => {
-    Axios.get(
-      `http://localhost:3002/api/get/mobileMake/${location.slice(0, 3)}`
-    ).then((response) => {
-      const data = response.data;
-      let finalArray = [];
-      finalArray = data.map(function (obj) {
-        return obj.city_country;
+    if (location && location.length >= 3) {
+      Axios.get(
+        `http://localhost:3002/api/get/mobileMake/${location.slice(0, 3)}`
+      ).then((response) => {
+        const data = response.data;
+        let finalArray = [];
+        finalArray = data.map(function (obj) {
+          return obj.city_country;
+        });
+        setCityNames([...finalArray]);
       });
-      setCityNames([...finalArray]);
-    });
+    }
   }, [location]);
 
   // console.log("mobileNames = ", mobileNames);
@@ -41,7 +43,7 @@ export default function App() {
     setErrorResponse("");
     setRepeat(false);
     await Axios({
-      url: `https://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=${DEVELOPER_KEY}&units=metric`,
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=${OPENWEATHER_API_KEY}&units=metric`,
       method: "GET",
     })
       .then((response) => {
@@ -99,11 +101,11 @@ export default function App() {
               list="suggestion"
             />
             <datalist id="suggestion">
-              {cityNames.map((make, index) => {
+              {cityNames.map((city, index) => {
                 while (index <= 10) {
                   return (
-                    <option key={index} value={make}>
-                      {make}
+                    <option key={index} value={city}>
+                      {city}
                     </option>
                   );
                 }
