@@ -22,9 +22,6 @@ app.get("/api/get/mobileMake/:prefix", (req, res) => {
   const prefix = req.params.prefix; // Get the prefix from the request URL
   const getItems = `SELECT distinct(city_country) FROM cities WHERE city_country LIKE '${prefix}%' LIMIT 10;`;
   db.query(getItems, (err, result, fields) => {
-    // console.log("err = ", err);
-    // console.log("sending", result);
-    // res.send(["hello"]);
     res.send(result);
   });
 });

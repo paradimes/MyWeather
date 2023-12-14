@@ -47,3 +47,8 @@ export interface WeatherResponse {
   name: string;
   cod: number;
 }
+
+export interface ErrorType {
+  cod?: string;
+  message?: string;
+}

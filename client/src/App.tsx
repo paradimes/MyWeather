@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { WeatherResponse } from "./components/customTypes";
+import { WeatherResponse, ErrorType } from "./components/customTypes";
 import WeatherCard from "./components/WeatherCard";
 import Axios from "axios";
 
@@ -7,11 +7,10 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 export default function App() {
   const [location, setLocation] = useState<string>("");
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorResponse, setErrorResponse] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorResponse, setErrorResponse] = useState<ErrorType>({});
   const [dataArray, setDataArray] = useState<WeatherResponse[]>([]);
-  const [cityNames, setCityNames] = useState([]);
+  const [cityNames, setCityNames] = useState<string[]>([]);
   const [visited, setVisited] = useState<string[]>([]);
   const [repeat, setRepeat] = useState<boolean>(false);
 
@@ -27,20 +26,17 @@ export default function App() {
         `http://localhost:3002/api/get/mobileMake/${location.slice(0, 3)}`
       ).then((response) => {
         const data = response.data;
-        let finalArray = [];
-        finalArray = data.map(function (obj) {
-          return obj.city_country;
-        });
+        const finalArray: string[] = data.map(
+          (obj: { city_country: string }) => obj.city_country
+        );
         setCityNames([...finalArray]);
       });
     }
   }, [location]);
 
-  // console.log("mobileNames = ", mobileNames);
-
   async function getWeather() {
     setIsLoading(true);
-    setErrorResponse("");
+    setErrorResponse({});
     setRepeat(false);
     await Axios({
       url: `https://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=${OPENWEATHER_API_KEY}&units=metric`,
@@ -48,7 +44,6 @@ export default function App() {
     })
       .then((response) => {
         setIsLoading(false);
-        setData(response.data);
         if (
           visited.includes(
             response.data.name + ", " + response.data.sys.country
@@ -68,11 +63,6 @@ export default function App() {
         setErrorResponse(error.response.data);
       });
   }
-  // console.log("data = ", data);
-  // console.log("errorResponse = ", errorResponse);
-  // console.log("dataArray", dataArray);
-  // console.log("visited", visited);
-  // console.log("-----------------------------------");
 
   return (
     <main className="flex flex-col h-screen overflow-auto bg-[#222] text-white items-center pt-10">
@@ -134,14 +124,13 @@ export default function App() {
               </button>
             )}
           </form>
-          {errorResponse || repeat ? (
+          {errorResponse.message || repeat ? (
             <div
               id="msg"
               className=" max-w-md min-h-[40px] text-sm font-bold text-red-700 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 mt-3 max-[500px]:text-xs max-[700px]:static max-[700px]:min-h-0"
             >
-              {errorResponse
-                ? `Error ${errorResponse.cod}: ${errorResponse.message}. Please enter a
-              valid city name.`
+              {errorResponse.message
+                ? `Error: ${errorResponse.message}. Please enter a valid city name.`
                 : `You have already searched for this location.`}
             </div>
           ) : null}
