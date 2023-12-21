@@ -3,8 +3,6 @@ import { WeatherResponse, ErrorType } from "./components/customTypes";
 import WeatherCard from "./components/WeatherCard";
 import Axios from "axios";
 
-const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
-
 export default function App() {
   const [location, setLocation] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,7 +37,7 @@ export default function App() {
     setErrorResponse({});
     setRepeat(false);
     await Axios({
-      url: `https://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=${OPENWEATHER_API_KEY}&units=metric`,
+      url: `http://localhost:3002/api/get/getWeather/${location}`,
       method: "GET",
     })
       .then((response) => {
